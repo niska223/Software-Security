@@ -1,20 +1,17 @@
 const express = require('express');
-const router = express.Router();
-const { getDb } = require('../db'); // Adjust path as needed
+const router = express.Router();  // Create a new router instance
+const { getDb } = require('../db');  // Adjust path as needed
 
 router.get('/', async (req, res) => {
-    const { token } = req.query; // Get token from the query string
-    const db = getDb(); // Get the database instance
+    const { token } = req.query;  // Get token from the query string
+    const db = getDb();  // Get the database instance
 
     try {
         // Find the user by the verification token
         const user = await db.collection('users').findOne({ verificationToken: token });
 
         if (!user) {
-            return res.status(400).send(`
-                <h1>Invalid Token</h1>
-                <p>It seems the token is invalid or the user does not exist. Please check your link or contact support.</p>
-            `);
+            return res.status(400).send('Invalid token or user not found.');
         }
 
         // Update the user's email as verified
@@ -30,11 +27,9 @@ router.get('/', async (req, res) => {
         `);
     } catch (err) {
         console.error('Error verifying email:', err);
-        res.status(500).send(`
-            <h1>Error Verifying Email</h1>
-            <p>We encountered an error while verifying your email. Please try again or contact support.</p>
-        `);
+        res.status(500).send('Error verifying email.');
     }
 });
 
+// Export the router to use it in your main server file (server.js)
 module.exports = router;
