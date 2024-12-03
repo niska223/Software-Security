@@ -160,7 +160,7 @@ router.post('/', async (req, res) => {
         );
 
         // Send verification email
-        const verificationLink = `https://www.projectnikza.studio//verify?token=${verificationToken}`;
+        const verificationLink = `https://www.projectnikza.studio/verify?token=${verificationToken}`;
         const mailOptions = {
             from: 'fniska8@gmail.com',
             to: email,
