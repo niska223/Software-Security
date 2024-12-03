@@ -93,8 +93,8 @@ router.get('/', (req, res) => {
                         <input type="email" id="email" name="email" required>
                     </div>
                     <div class="form-group">
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" name="password" required>
+                        <label for="password">Password (Min 8 Characters):</label>
+                        <input type="password" id="password" name="password" required minlength="8">
                         <input type="checkbox" id="show-password" onclick="togglePassword()"> Show Password
                     </div>
                     <button type="submit">Register</button>
@@ -125,6 +125,11 @@ router.post('/', async (req, res) => {
     const saltRounds = 10;
 
     try {
+        // Validate password length
+        if (password.length < 8) {
+            return res.send('Password must be at least 8 characters long.');
+        }
+
         // Check if the email already exists
         const existingUser = await db.collection('users').findOne({ email });
         if (existingUser) {

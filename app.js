@@ -29,6 +29,8 @@ const dashboardRoute = require('./Views/dashboard');
 const userProfileRoute = require('./Views/userProfile');
 const verifyRoute = require('./Views/verify');
 const logsRoute = require('./Views/logs');
+const forgetPasswordRoute = require('./Views/forgetPassword');
+const logoutRoute = require('./Views/logout');
 
 
 // Use imported routes
@@ -39,6 +41,8 @@ app.use('/dashboard', dashboardRoute);
 app.use('/userProfile', userProfileRoute);
 app.use('/verify', verifyRoute);
 app.use('/logs', logsRoute);
+app.use('/forgetPassword', forgetPasswordRoute);
+app.use('/logout', logoutRoute);
 
 // Error handling for 404 - Not Found
 app.use((req, res) => {
