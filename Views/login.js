@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
     const currentTime = Date.now();
     const isLockedOut = currentTime < lockedOutUntil;
 
-    const remainingTime = isLockedOut ? Math.ceil((lockedOutUntil - currentTime) / 1000) : 0; // Calculate remaining time in seconds
+    const remainingTime = isLockedOut ? Math.ceil((lockedOutUntil - currentTime) / 1000) : 0; // Remaining time in seconds
 
     const htmlContent = `
     <!DOCTYPE html>
@@ -25,7 +25,7 @@ router.get('/', (req, res) => {
             * { box-sizing: border-box; }
             body {
                 font-family: Arial, sans-serif;
-                background-color: #f0f0f0;
+                background-color: #e6f0fa; /* Light blue background */
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -37,7 +37,7 @@ router.get('/', (req, res) => {
                 margin-bottom: 20px;
             }
             h1 {
-                color: #4CAF50;
+                color: #007bff; /* Blue color */
                 font-size: 2em;
             }
             .login-container {
@@ -45,7 +45,7 @@ router.get('/', (req, res) => {
                 max-width: 400px;
                 padding: 20px;
                 background-color: #fff;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
                 border-radius: 10px;
             }
             .login-card {
@@ -75,7 +75,7 @@ router.get('/', (req, res) => {
             }
             button {
                 padding: 10px;
-                background-color: #4CAF50;
+                background-color: #007bff; /* Blue button */
                 color: #fff;
                 border: none;
                 border-radius: 5px;
@@ -84,13 +84,13 @@ router.get('/', (req, res) => {
                 transition: background-color 0.3s ease;
             }
             button:hover {
-                background-color: #45a049;
+                background-color: #0056b3;
             }
             p {
                 margin: 10px 0;
             }
             a {
-                color: #7B97D3;
+                color: #007bff; /* Link color */
                 text-decoration: none;
             }
             a:hover {

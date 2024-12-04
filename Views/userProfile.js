@@ -26,9 +26,10 @@ router.get('/', (req, res) => {
         }
         header {
             background-color: #C9D2F2;
-            color: #7B97D3;
+            color: #03045e;
             padding: 20px 0;
             text-align: center;
+            border-bottom: 2px solid #7B97D3;
         }
         h1 {
             margin: 0;
@@ -39,18 +40,20 @@ router.get('/', (req, res) => {
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 20px;
         }
         .update-container {
-            background-color: white;
+            background-color: #ffffff;
             border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 25px;
             max-width: 500px;
+            width: 100%;
         }
         h2 {
-            color: #03045e;
             text-align: center;
+            color: #03045e;
+            margin-bottom: 20px;
         }
         .form-group {
             margin-bottom: 15px;
@@ -58,7 +61,7 @@ router.get('/', (req, res) => {
         label {
             display: block;
             font-size: 1.1em;
-            color: black;
+            color: #333333;
             margin-bottom: 8px;
         }
         input, select {
@@ -83,19 +86,12 @@ router.get('/', (req, res) => {
         button:hover {
             background-color: #03045e;
         }
-        a {
-            color: #7B97D3;
-            text-decoration: none;
-            font-size: 1em;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
         footer {
             background-color: #C9D2F2;
-            color: #7B97D3;
+            color: #03045e;
             text-align: center;
             padding: 10px 0;
+            border-top: 2px solid #7B97D3;
             margin-top: auto;
         }
     </style>
@@ -105,41 +101,37 @@ router.get('/', (req, res) => {
         <h1>Update User Information</h1>
     </header>
     <main>
-        <section class="update-container">
-            <div class="update-card">
-                <h2>Update Your Account</h2>
-                <form id="updateForm" action="/profile/update" method="POST">
-                    <div class="form-group">
-                        <label for="oldEmail">Old Email:</label>
-                        <input type="email" id="oldEmail" name="oldEmail" placeholder="Enter your old email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" name="name" placeholder="Enter your name">
-                    </div>
-                    <div class="form-group">
-                        <label for="age">Age:</label>
-                        <input type="number" id="age" name="age" placeholder="Enter your age">
-                    </div>
-                    <div class="form-group">
-                        <label for="gender">Gender:</label>
-                        <select id="gender" name="gender">
-                            <option value="" disabled selected>Select your gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="dob">Date of Birth:</label>
-                        <input type="date" id="dob" name="dob">
-                    </div>
-                    <button type="submit">Update</button>
-                </form>
-                <p><a href="/changeEmail">Do you want to change your Email address?</a></p>
-                <p><a href="/changePassword">Do you want to change your password?</a></p>
-            </div>
-        </section>
+        <div class="update-container">
+            <h2>Update Your Details</h2>
+            <form id="updateForm" action="/profile/update" method="POST">
+                <div class="form-group">
+                    <label for="oldEmail">Email:</label>
+                    <input type="email" id="oldEmail" name="old Email" placeholder="Enter your old email" required>
+                </div>
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" placeholder="Enter your age">
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender:</label>
+                    <select id="gender" name="gender">
+                        <option value="" disabled selected>Select your gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="dob">Date of Birth:</label>
+                    <input type="date" id="dob" name="dob">
+                </div>
+                <button type="submit">Update</button>
+            </form>
+        </div>
     </main>
     <footer>
         <p>&copy; 2024 My Node.js App</p>
@@ -148,15 +140,13 @@ router.get('/', (req, res) => {
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        // Handle form submission with AJAX
         document.getElementById('updateForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission
+            event.preventDefault();
 
             const formData = new FormData(this);
             const data = {};
             formData.forEach((value, key) => data[key] = value);
 
-            // Send the POST request to the server
             fetch('/profile/update', {
                 method: 'POST',
                 headers: {
@@ -166,7 +156,6 @@ router.get('/', (req, res) => {
             })
             .then(response => response.text())
             .then(message => {
-                // Display success message with SweetAlert2
                 Swal.fire({
                     icon: 'success',
                     title: 'Success',
@@ -174,7 +163,6 @@ router.get('/', (req, res) => {
                 });
             })
             .catch(error => {
-                // Display error message with SweetAlert2
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -196,20 +184,17 @@ router.post('/update', async (req, res) => {
     const db = getDb(); // Get the MongoDB database instance
 
     try {
-        // Create an update object
         const updateData = {};
-        if (name) updateData.name = name; // Update name only if provided
-        if (age) updateData.age = parseInt(age, 10); // Update age if provided, converting to integer
-        if (gender) updateData.gender = gender; // Update gender if provided
-        if (dob) updateData.dob = new Date(dob); // Update date of birth if provided
+        if (name) updateData.name = name;
+        if (age) updateData.age = parseInt(age, 10);
+        if (gender) updateData.gender = gender;
+        if (dob) updateData.dob = new Date(dob);
 
-        // Update the user in the database
         const result = await db.collection('users').updateOne(
-            { email: oldEmail }, // Filter to find the user by old email
-            { $set: updateData } // Update the fields specified
+            { email: oldEmail },
+            { $set: updateData }
         );
 
-        // Check if the user was updated
         if (result.modifiedCount === 0) {
             return res.status(404).send('User not found or no changes made.');
         }

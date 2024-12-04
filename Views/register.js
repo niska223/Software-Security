@@ -74,6 +74,17 @@ router.get('/', (req, res) => {
             button:hover {
                 background-color: #005b9a;
             }
+            a {
+                color: #0077b6;
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+            footer {
+                margin-top: 20px;
+                font-size: 14px;
+            }
         </style>
     </head>
     <body>
@@ -93,7 +104,7 @@ router.get('/', (req, res) => {
                         <input type="email" id="email" name="email" required>
                     </div>
                     <div class="form-group">
-                        <label for="password">Password :</label>
+                        <label for="password">Password:</label>
                         <input type="password" id="password" name="password" required minlength="8">
                         <input type="checkbox" id="show-password" onclick="togglePassword()"> Show Password
                     </div>
@@ -160,7 +171,7 @@ router.post('/', async (req, res) => {
         );
 
         // Send verification email
-        const verificationLink = `https://www.projectnikza.studio/verify?token=${verificationToken}`;
+        const verificationLink = `http://localhost:3000/verify?token=${verificationToken}`;
         const mailOptions = {
             from: 'fniska8@gmail.com',
             to: email,
