@@ -177,6 +177,30 @@ router.post('/', async (req, res) => {
     const { email, password } = req.body;
     const db = getDb();
 
+    // Admin hardcoded credentials
+    const adminCredentials = {
+        email: 'admin@example.com',
+        password: 'Admin@123', // Use a hashed password for better security in production
+        dashboard: '/admindashboard'
+    };
+
+    // Check if the user is the admin
+    if (email === adminCredentials.email) {
+        const isAdminPasswordCorrect = password === adminCredentials.password; // Simple check for now
+        if (!isAdminPasswordCorrect) {
+            req.session.errorMessage = 'Invalid email or password.';
+            return res.redirect('/login');
+        }
+
+        req.session.user = {
+            role: 'admin',
+            email: adminCredentials.email,
+        };
+
+        return res.redirect(adminCredentials.dashboard);
+    }
+
+    // Regular user login
     if (!req.session.attempts) {
         req.session.attempts = 0;
     }

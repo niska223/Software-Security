@@ -1,16 +1,17 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-// User schema definition
+// Define the user schema combining both definitions
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
+        required: true, // Name should be required for identification purposes
     },
+    
     email: {
         type: String,
         required: true,
-        unique: true,
+        unique: true, // Ensure it’s unique
         lowercase: true, // Normalize to lowercase for case-insensitive email
         match: [/\S+@\S+\.\S+/, 'Please provide a valid email address'], // Email validation
     },
@@ -21,21 +22,33 @@ const userSchema = new mongoose.Schema({
     },
     age: {
         type: Number,
-        required: true,
+        required: false, // Optional field for age
+        min: [13, 'Age must be at least 13'], // Add validation for a minimum age
     },
     gender: {
         type: String,
-        required: true,
-        enum: ['Male', 'Female', 'Other'], // Optional: Gender validation
+        required: false, // Optional field for gender
+        enum: ['Male', 'Female', 'Other'], // Gender validation
     },
     dob: {
         type: Date,
-        required: false,
+        required: false, // Optional field for date of birth
+        validate: {
+            validator: function (value) {
+                return value <= new Date(); // Ensure date of birth is not in the future
+            },
+            message: 'Date of birth cannot be in the future',
+        },
+    },
+    role: {
+        type: String,
+        default: 'user', // Default role is 'user', but it can be set to 'admin'
+        enum: ['user', 'admin'], // Ensure the role is either 'user' or 'admin'
     },
     createdAt: {
         type: Date,
         default: Date.now, // Automatically sets the creation date
-    }
+    },
 });
 
 // Hash password before saving the user

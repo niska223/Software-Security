@@ -26,12 +26,16 @@ const indexRoute = require('./Views/index');
 const loginRoute = require('./Views/login');
 const registerRoute = require('./Views/register');
 const dashboardRoute = require('./Views/dashboard');
-const userProfileRoute = require('./Views/userProfile');
+const userProfileRoute = require('./Views/userprofile');
 const verifyRoute = require('./Views/verify');
 const logsRoute = require('./Views/logs');
 const forgetPasswordRoute = require('./Views/forgetPassword');
 const logoutRoute = require('./Views/logout');
+const adminDashboardRoute = require('./Views/adminDashboard');
+const logModelRoute = require('./Views/logModel');  // Correct path for logModelRoute
 
+// Import the admin router
+const adminRouter = require('./Views/adminDashboard'); // Assuming the admin routes are in the adminDashboard file
 
 // Use imported routes
 app.use('/', indexRoute);
@@ -43,6 +47,11 @@ app.use('/verify', verifyRoute);
 app.use('/logs', logsRoute);
 app.use('/forgetPassword', forgetPasswordRoute);
 app.use('/logout', logoutRoute);
+app.use('/adminDashboard', adminDashboardRoute);
+app.use('/logs', logModelRoute); // Ensure the correct logModelRoute is used here
+
+// Add the admin dashboard route
+app.use('/admin', adminRouter); // Correct this to make sure the route is working properly
 
 // Error handling for 404 - Not Found
 app.use((req, res) => {
